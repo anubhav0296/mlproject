@@ -1,4 +1,5 @@
 import sys
+import logging
 # from src.logger import logging -- This is giving error when running python exception.py
 
 # Creating a function to show this message as my own custom message
