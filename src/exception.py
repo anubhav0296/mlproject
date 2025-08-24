@@ -1,5 +1,5 @@
-import logging
 import sys
+# from src.logger import logging -- This is giving error when running python exception.py
 
 # Creating a function to show this message as my own custom message
 def error_message_detail(error, error_detail:sys):
@@ -9,9 +9,9 @@ def error_message_detail(error, error_detail:sys):
 
     # Basically we are fetching the file name inside "exc_tb"
     file_name = exc_tb.tb_frame.f_code.co_filename
-    error_message = print("Error occured in python script name [{0}], line [{1}], error message: [{2}]".format(
+    error_message = "Error occured in python script name [{0}], line [{1}], error message: [{2}]".format(
                             file_name, exc_tb.tb_lineno, str(error)
-    ))
+    )
 
     return error_message
 
