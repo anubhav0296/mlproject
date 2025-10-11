@@ -1,0 +1,28 @@
+import os
+import sys
+from dataclasses import dataclass
+
+import dill
+from src.exception import CustomException
+from src.logger import logging
+
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+
+import numpy as np
+import pandas as pd
+
+
+def save_object(self, file_path, obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+
+        os.makedirs(os.path.dirname(dir_path), exist_ok=True)
+
+        with open(file_path, "wb") as file_obj:
+            dill.dump(obj, file_obj)
+
+    except Exception as e:
+        raise CustomException(e, sys)
