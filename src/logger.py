@@ -3,7 +3,7 @@ import os
 from datetime import datetime 
 
 # When logging file is triggered, as a first step, this file.log is created
-LOG_FILE = f"{datetime.now().strftime("%m_%d_%Y_%H_%M_%S")}.log"
+LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 
 # Here we are joining CWD + logs + LOG_FILE
 log_path = os.path.join(os.getcwd(), "logs", LOG_FILE)
