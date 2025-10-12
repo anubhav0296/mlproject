@@ -45,7 +45,7 @@ class DataTransformation:
                 steps=[
                     ("imputer", SimpleImputer(strategy="most_frequent")),
                     ("encoder", OneHotEncoder()),
-                    ("scaler", StandardScaler())
+                    ("scaler", StandardScaler(with_mean=False))
                 ]
             )
 
@@ -84,8 +84,8 @@ class DataTransformation:
             pre_processed_train_df = pre_processor_obj.fit_transform(input_feature_train_df)
             pre_processed_test_df = pre_processor_obj.transform(input_feature_test_df)
 
-            train_arr = np.c_[pre_processed_train_df, target_feature_train_df]
-            test_arr = np.c_[pre_processed_test_df, target_feature_test_df]
+            train_arr = np.c_[pre_processed_train_df, np.array(target_feature_train_df)]
+            test_arr = np.c_[pre_processed_test_df, np.array(target_feature_test_df)]
 
             save_object(
                 file_path = self.data_transformation_config.pre_processor_obj_file_path,
