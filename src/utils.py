@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 import dill
 from sklearn.metrics import r2_score
+from sklearn.model_selection import GridSearchCV
 from src.exception import CustomException
 from src.logger import logging
 
@@ -28,24 +29,39 @@ def save_object(file_path, obj):
     except Exception as e:
         raise CustomException(e, sys)
     
-def evaluate_models(X_train, y_train, X_test, y_test, models):
+def evaluate_models(X_train, y_train, X_test, y_test, models, param):
     
     try:
         report = {}
 
-        for i in range(len(list(models))):
-            model = list(models.values())[i]
+        for model_name, model in models.items():
 
+            logging.info("Model Training has started")
+            print(f"Training {model_name}...")
+
+            # get parameter grid for this model
+            para = param.get(model_name, {})  # safe way
+
+            # perform GridSearchCV if params exist
+            if para:
+                gs = GridSearchCV(model, para, cv=3)
+                gs.fit(X_train, y_train)
+                model.set_params(**gs.best_params_)  # update model with best params
+
+            # fit the final model
             model.fit(X_train, y_train)
 
+            # predict and calculate r2
             y_pred_test = model.predict(X_test)
             test_model_r2_score = r2_score(y_test, y_pred_test)
 
             y_pred_train = model.predict(X_train)
             train_model_r2_score = r2_score(y_train, y_pred_train)
 
-            report[list(models.keys())[i]] = test_model_r2_score
-        
+            logging.info(f"{model_name} has r2_score as {test_model_r2_score}")
+            # save test score in report
+            report[model_name] = test_model_r2_score
+
         return report
 
         
