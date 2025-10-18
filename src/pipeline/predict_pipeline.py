@@ -6,7 +6,7 @@ import numpy as np
 from src.logger import logging
 from src.exception import CustomException
 
-from src.utils import load_data
+from src.utils import load_object
 
 
 class PredictPipeline:
@@ -15,15 +15,23 @@ class PredictPipeline:
 
     def predict_data(self, features):
         try:
-            model_path = os.path.join("artifacts", "model_trainer.pxl")
-            preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
+            # model_path = os.path.join("artifacts", "model_trainer.pxl")
+            # preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
+
+            model_path = "artifacts/model_trainer.pxl"
+            preprocessor_path = "artifacts/preprocessor.pkl"
+            print(f"Model path {model_path}")
+            print(f"Preprocessor_path path {preprocessor_path}")
 
             print("Before loading")
-            model = load_data(model_path)
-            preprocessor = load_data(preprocessor_path)
+            model = load_object(model_path)
+            preprocessor = load_object(preprocessor_path)
             print("After loading")
-
+            
+            # Error is coming here
+            print(f"Features {features}")
             data_scaled = preprocessor.transform(features)
+            print("Data Scaling is done")
             pred = model.predict(data_scaled)
 
             return pred

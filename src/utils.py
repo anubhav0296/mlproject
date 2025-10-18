@@ -15,6 +15,7 @@ from sklearn.pipeline import Pipeline
 
 import numpy as np
 import pandas as pd
+import pickle
 
 
 def save_object(file_path, obj):
@@ -68,14 +69,23 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
 
         return report
 
-        
     except Exception as e:
         raise CustomException(e, sys)
     
 
-def load_data(file_path):
+# def load_data(file_path):
+#     try:
+#         with open(file_path, "rb") as file_obj:
+#             print("Error in load_data")
+#             logging.info("Error in load data")
+#             return dill.load(file_obj)
+#     except Exception as e:
+#         raise CustomException(e, sys)
+    
+def load_object(file_path):
     try:
         with open(file_path, "rb") as file_obj:
             return dill.load(file_obj)
+
     except Exception as e:
         raise CustomException(e, sys)

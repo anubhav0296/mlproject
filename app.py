@@ -25,8 +25,7 @@ def predict_datapoint():
     else:
         # If the method is post, then first data will be stored, then converted to dataframe
         data = CustomData(
-                data = request.form.to_dict(flat=True),
-                gender = request.form.get("gender"),
+                gender = request.form.get("gender", '').strip(),
                 race_ethnicity = request.form.get("race_ethnicity"),
                 parental_level_of_education = request.form.get("parental_level_of_education"),
                 lunch = request.form.get("lunch"),
