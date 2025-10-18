@@ -55,12 +55,15 @@ class DataIngestion:
             raise CustomException(e, sys)
 
 if __name__ == "__main__":
+    # Creating the object for data ingestion and then initializing the function
     obj = DataIngestion()
     train_data, test_data = obj.initialize_data_ingestion()
 
+    # Creating an object of Data Transformation and then initiatilizing it (Storing it's O/P as array)
     data_transformation_obj = DataTransformation()
     train_arr, test_arr, _ = data_transformation_obj.initiate_data_transformation(train_data, test_data)
     
+    # Creating an Object of Model Trainer and then initializing it, storing it's 3 O/P's
     modeltrainer=ModelTrainer()
     print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
 

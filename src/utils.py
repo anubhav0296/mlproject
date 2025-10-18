@@ -28,7 +28,9 @@ def save_object(file_path, obj):
 
     except Exception as e:
         raise CustomException(e, sys)
-    
+
+# This function takes the inputs, runs a loop to fit the data in each model 
+# the returns as reportof each model (Dictionary)   
 def evaluate_models(X_train, y_train, X_test, y_test, models, param):
     
     try:
