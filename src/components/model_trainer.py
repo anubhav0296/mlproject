@@ -122,6 +122,6 @@ class ModelTrainer:
             logging.info(f"The best model is {best_model_name} with r2_score - {best_model_score}")
 
             return r2_square
-
+                                            
         except Exception as e:
             raise CustomException(e, sys)

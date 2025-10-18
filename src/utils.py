@@ -41,16 +41,18 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
             logging.info("Model Training has started")
             print(f"Training {model_name}...")
 
-            # get parameter grid for this model
-            para = param.get(model_name, {})  # safe way
-
-            # perform GridSearchCV if params exist
+            # Get parameters for a particular model (using name of model - key)
+            para = param.get(model_name, {})
+            
             if para:
+                # Perform GridSearchCV
                 gs = GridSearchCV(model, para, cv=3)
                 gs.fit(X_train, y_train)
-                model.set_params(**gs.best_params_)  # update model with best params
 
-            # fit the final model
+                # Parameters that gave the best results on the hold out data.
+                model.set_params(**gs.best_params_)
+
+            # Fit the final parameters into the model
             model.fit(X_train, y_train)
 
             # predict and calculate r2
